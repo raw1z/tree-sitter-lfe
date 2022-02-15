@@ -1,0 +1,20 @@
+{
+  "name": "tree-sitter-lfe",
+  "version": "0.0.1",
+  "description": "Tree-sitter parser for Lisp Flavoured Erlang",
+  "main": "bindings/node",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raw1z/tree-sitter-lfe.git"
+  },
+  "author": "Rawane ZOSSOU",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raw1z/tree-sitter-lfe/issues"
+  },
+  "homepage": "https://github.com/raw1z/tree-sitter-lfe#readme",
+  "dependencies": {
+    "nan": "^2.15.0",
+    "tree-sitter-commonlisp": "^0.3.0"
+  }
+}
