@@ -33,6 +33,45 @@ lambda
         (symbol)))))
 
 ================================================================================
+match-lambda
+================================================================================
+
+(match-lambda
+  (('ok msg)
+    (ok))
+  (('warn msg)
+    (warn))
+  (('crit msg)
+    (crit)))
+
+--------------------------------------------------------------------------------
+
+(source
+  (match_lambda
+    (patterns
+      (pattern_clause
+        (pattern
+          (symbol)
+          (symbol))
+        (body
+          (list
+            (symbol))))
+      (pattern_clause
+        (pattern
+          (symbol)
+          (symbol))
+        (body
+          (list
+            (symbol))))
+      (pattern_clause
+        (pattern
+          (symbol)
+          (symbol))
+        (body
+          (list
+            (symbol)))))))
+
+================================================================================
 defun
 ================================================================================
 

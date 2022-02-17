@@ -29,6 +29,7 @@ module.exports = grammar({
         $.tuple,
         $.map,
         $.lambda,
+        $.match_lambda,
         $.defun,
         $.defmacro,
         $.module
@@ -205,6 +206,14 @@ module.exports = grammar({
     pattern_clause: ($) => seq("(", alias($.list, $.pattern), $.body, ")"),
 
     lambda: ($) => seq("(", "lambda", $.parameters, $.body, ")"),
+
+    match_lambda: ($) =>
+      seq(
+        "(",
+        "match-lambda",
+        alias(repeat1($.pattern_clause), $.patterns),
+        ")"
+      ),
 
     defun: ($) =>
       seq(

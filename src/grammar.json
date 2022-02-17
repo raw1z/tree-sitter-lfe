@@ -109,6 +109,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "match_lambda"
+        },
+        {
+          "type": "SYMBOL",
           "name": "defun"
         },
         {
@@ -1123,6 +1127,35 @@
         {
           "type": "SYMBOL",
           "name": "body"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "match_lambda": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "STRING",
+          "value": "match-lambda"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "pattern_clause"
+            }
+          },
+          "named": true,
+          "value": "patterns"
         },
         {
           "type": "STRING",
