@@ -896,6 +896,18 @@
         "type": "SEQ",
         "members": [
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "'"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "PATTERN",
             "value": "[^\\s\\n\\v\\f\\r(){}\\[\\]\";|',#]"
           },
@@ -912,6 +924,18 @@
         {
           "type": "SEQ",
           "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "'"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
             {
               "type": "STRING",
               "value": "("
@@ -932,6 +956,18 @@
         {
           "type": "SEQ",
           "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "'"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
             {
               "type": "STRING",
               "value": "["
@@ -1012,15 +1048,11 @@
         }
       ]
     },
-    "function_argument": {
-      "type": "FIELD",
-      "name": "name",
-      "content": {
-        "type": "SYMBOL",
-        "name": "symbol"
-      }
+    "binding": {
+      "type": "SYMBOL",
+      "name": "symbol"
     },
-    "function_parameters": {
+    "parameters": {
       "type": "SEQ",
       "members": [
         {
@@ -1031,7 +1063,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "function_argument"
+            "name": "binding"
           }
         },
         {
@@ -1040,14 +1072,14 @@
         }
       ]
     },
-    "function_body": {
+    "body": {
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
         "name": "_form"
       }
     },
-    "function_pattern": {
+    "pattern_clause": {
       "type": "SEQ",
       "members": [
         {
@@ -1055,20 +1087,17 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "parameters",
+          "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "function_parameters"
-          }
+            "name": "list"
+          },
+          "named": true,
+          "value": "pattern"
         },
         {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "function_body"
-          }
+          "type": "SYMBOL",
+          "name": "body"
         },
         {
           "type": "STRING",
@@ -1088,20 +1117,12 @@
           "value": "lambda"
         },
         {
-          "type": "FIELD",
-          "name": "parameters",
-          "content": {
-            "type": "SYMBOL",
-            "name": "function_parameters"
-          }
+          "type": "SYMBOL",
+          "name": "parameters"
         },
         {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "function_body"
-          }
+          "type": "SYMBOL",
+          "name": "body"
         },
         {
           "type": "STRING",
@@ -1135,20 +1156,12 @@
                   }
                 },
                 {
-                  "type": "FIELD",
-                  "name": "parameters",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "function_parameters"
-                  }
+                  "type": "SYMBOL",
+                  "name": "parameters"
                 },
                 {
-                  "type": "FIELD",
-                  "name": "body",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "function_body"
-                  }
+                  "type": "SYMBOL",
+                  "name": "body"
                 }
               ]
             },
@@ -1176,20 +1189,16 @@
                   ]
                 },
                 {
-                  "type": "FIELD",
-                  "name": "patterns",
+                  "type": "ALIAS",
                   "content": {
-                    "type": "ALIAS",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "REPEAT1",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "function_pattern"
-                      }
-                    },
-                    "named": true,
-                    "value": "function_patterns"
-                  }
+                      "type": "SYMBOL",
+                      "name": "pattern_clause"
+                    }
+                  },
+                  "named": true,
+                  "value": "patterns"
                 }
               ]
             }
@@ -1227,20 +1236,12 @@
                   }
                 },
                 {
-                  "type": "FIELD",
-                  "name": "parameters",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "function_parameters"
-                  }
+                  "type": "SYMBOL",
+                  "name": "parameters"
                 },
                 {
-                  "type": "FIELD",
-                  "name": "body",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "function_body"
-                  }
+                  "type": "SYMBOL",
+                  "name": "body"
                 }
               ]
             },
@@ -1268,20 +1269,16 @@
                   ]
                 },
                 {
-                  "type": "FIELD",
-                  "name": "patterns",
+                  "type": "ALIAS",
                   "content": {
-                    "type": "ALIAS",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "REPEAT1",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "function_pattern"
-                      }
-                    },
-                    "named": true,
-                    "value": "function_patterns"
-                  }
+                      "type": "SYMBOL",
+                      "name": "pattern_clause"
+                    }
+                  },
+                  "named": true,
+                  "value": "patterns"
                 }
               ]
             }

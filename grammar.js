@@ -29,7 +29,6 @@ module.exports = grammar({
         $.tuple,
         $.map,
         $.lambda,
-        $.match_lambda,
         $.defun,
         $.defmacro,
         $.module
@@ -197,46 +196,26 @@ module.exports = grammar({
 
     map: ($) => seq("#M(", repeat($.map_pair), ")"),
 
-    function_argument: ($) => field("name", $.symbol),
+    binding: ($) => $.symbol,
 
-    function_parameters: ($) => seq("(", repeat($.function_argument), ")"),
+    parameters: ($) => seq("(", repeat($.binding), ")"),
 
-    function_body: ($) => repeat1($._form),
+    body: ($) => repeat1($._form),
 
-    function_pattern: ($) =>
-      seq(
-        "(",
-        field("parameters", $.function_parameters),
-        field("body", $.function_body),
-        ")"
-      ),
+    pattern_clause: ($) => seq("(", alias($.list, $.pattern), $.body, ")"),
 
-    lambda: ($) =>
-      seq(
-        "(",
-        "lambda",
-        field("parameters", $.function_parameters),
-        field("body", $.function_body),
-        ")"
-      ),
+    lambda: ($) => seq("(", "lambda", $.parameters, $.body, ")"),
 
     defun: ($) =>
       seq(
         "(",
         "defun",
         choice(
-          seq(
-            field("name", $.symbol),
-            field("parameters", $.function_parameters),
-            field("body", $.function_body)
-          ),
+          seq(field("name", $.symbol), $.parameters, $.body),
           seq(
             field("name", $.symbol),
             optional($.list_string),
-            field(
-              "patterns",
-              alias(repeat1($.function_pattern), $.function_patterns)
-            )
+            alias(repeat1($.pattern_clause), $.patterns)
           )
         ),
         ")"
@@ -247,18 +226,11 @@ module.exports = grammar({
         "(",
         "defmacro",
         choice(
-          seq(
-            field("name", $.symbol),
-            field("parameters", $.function_parameters),
-            field("body", $.function_body)
-          ),
+          seq(field("name", $.symbol), $.parameters, $.body),
           seq(
             field("name", $.symbol),
             optional($.list_string),
-            field(
-              "patterns",
-              alias(repeat1($.function_pattern), $.function_patterns)
-            )
+            alias(repeat1($.pattern_clause), $.patterns)
           )
         ),
         ")"

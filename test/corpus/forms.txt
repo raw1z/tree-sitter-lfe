@@ -11,22 +11,22 @@ lambda
 
 (source
   (lambda
-   parameters: (function_parameters)
-   body: (function_body
+   (parameters)
+   (body
      (integer)))
   (lambda
-    parameters: (function_parameters
-      (function_argument
-        name: (symbol)))
-    body: (function_body
+    (parameters
+      (binding
+        (symbol)))
+    (body
       (symbol)))
   (lambda
-    parameters: (function_parameters
-      (function_argument
-        name: (symbol))
-      (function_argument
-        name: (symbol)))
-    body: (function_body
+    (parameters
+      (binding
+        (symbol))
+      (binding
+        (symbol)))
+    (body
       (list
         (symbol)
         (symbol)
@@ -56,42 +56,40 @@ defun
 (source
   (defun
     name: (symbol)
-    parameters: (function_parameters)
-    body: (function_body
+    (parameters)
+    (body
       (integer)))
   (defun
     name: (symbol)
-    parameters: (function_parameters
-      (function_argument
-        name: (symbol)))
-    body: (function_body
+    (parameters
+      (binding
+        (symbol)))
+    (body
       (symbol)))
   (defun
     name: (symbol)
-    parameters: (function_parameters
-      (function_argument
-        name: (symbol))
-      (function_argument
-        name: (symbol)))
-    body: (function_body
+    (parameters
+      (binding
+        (symbol))
+      (binding
+        (symbol)))
+    (body
       (list
         (symbol)
         (symbol)
         (symbol))))
   (defun
     name: (symbol)
-    patterns: (function_patterns
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+    (patterns
+      (pattern_clause
+        (pattern
+          (integer))
+        (body
           (integer)))
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+      (pattern_clause
+        (pattern
+          (symbol))
+        (body
           (list
             (symbol)
             (symbol)
@@ -103,25 +101,23 @@ defun
                 (integer))))))))
   (defun
     name: (symbol)
-    parameters: (function_parameters)
-    body: (function_body
+    (parameters)
+    (body
       (list_string)
       (integer)))
   (defun
     name: (symbol)
     (list_string)
-    patterns: (function_patterns
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+    (patterns
+      (pattern_clause
+        (pattern
+          (integer))
+        (body
           (integer)))
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+      (pattern_clause
+        (pattern
+          (symbol))
+        (body
           (list
             (symbol)
             (symbol)
@@ -156,42 +152,40 @@ defmacro
 (source
   (defmacro
     name: (symbol)
-    parameters: (function_parameters)
-    body: (function_body
+    (parameters)
+    (body
       (integer)))
   (defmacro
     name: (symbol)
-    parameters: (function_parameters
-      (function_argument
-        name: (symbol)))
-    body: (function_body
+    (parameters
+      (binding
+        (symbol)))
+    (body
       (symbol)))
   (defmacro
     name: (symbol)
-    parameters: (function_parameters
-      (function_argument
-        name: (symbol))
-      (function_argument
-        name: (symbol)))
-    body: (function_body
+    (parameters
+      (binding
+        (symbol))
+      (binding
+        (symbol)))
+    (body
       (list
         (symbol)
         (symbol)
         (symbol))))
   (defmacro
     name: (symbol)
-    patterns: (function_patterns
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+    (patterns
+      (pattern_clause
+        (pattern
+          (integer))
+        (body
           (integer)))
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+      (pattern_clause
+        (pattern
+          (symbol))
+        (body
           (list
             (symbol)
             (symbol)
@@ -203,25 +197,23 @@ defmacro
                 (integer))))))))
   (defmacro
     name: (symbol)
-    parameters: (function_parameters)
-    body: (function_body
+    (parameters)
+    (body
       (list_string)
       (integer)))
   (defmacro
     name: (symbol)
     (list_string)
-    patterns: (function_patterns
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+    (patterns
+      (pattern_clause
+        (pattern
+          (integer))
+        (body
           (integer)))
-      (function_pattern
-        parameters: (function_parameters
-          (function_argument
-            name: (symbol)))
-        body: (function_body
+      (pattern_clause
+        (pattern
+          (symbol))
+        (body
           (list
             (symbol)
             (symbol)

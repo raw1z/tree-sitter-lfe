@@ -92,135 +92,22 @@
     "fields": {}
   },
   {
-    "type": "defmacro",
+    "type": "binding",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "function_body",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "symbol",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "function_parameters",
-            "named": true
-          }
-        ]
-      },
-      "patterns": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "function_patterns",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "list_string",
+          "type": "symbol",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "defun",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "function_body",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "symbol",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "function_parameters",
-            "named": true
-          }
-        ]
-      },
-      "patterns": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "function_patterns",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "list_string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "function_argument",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "symbol",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "function_body",
+    "type": "body",
     "named": true,
     "fields": {},
     "children": {
@@ -287,56 +174,76 @@
     }
   },
   {
-    "type": "function_parameters",
+    "type": "defmacro",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "symbol",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "function_argument",
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "list_string",
+          "named": true
+        },
+        {
+          "type": "parameters",
+          "named": true
+        },
+        {
+          "type": "patterns",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "function_pattern",
+    "type": "defun",
     "named": true,
     "fields": {
-      "body": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "function_body",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "function_parameters",
+            "type": "symbol",
             "named": true
           }
         ]
       }
-    }
-  },
-  {
-    "type": "function_patterns",
-    "named": true,
-    "fields": {},
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "function_pattern",
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "list_string",
+          "named": true
+        },
+        {
+          "type": "parameters",
+          "named": true
+        },
+        {
+          "type": "patterns",
           "named": true
         }
       ]
@@ -371,27 +278,20 @@
   {
     "type": "lambda",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "function_body",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "function_parameters",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "parameters",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -819,6 +719,122 @@
     }
   },
   {
+    "type": "parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binding",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "character",
+          "named": true
+        },
+        {
+          "type": "defmacro",
+          "named": true
+        },
+        {
+          "type": "defun",
+          "named": true
+        },
+        {
+          "type": "delimited_symbol",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        },
+        {
+          "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "list_string",
+          "named": true
+        },
+        {
+          "type": "map",
+          "named": true
+        },
+        {
+          "type": "module",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pattern_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "patterns",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "pattern_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source",
     "named": true,
     "fields": {},
@@ -962,6 +978,10 @@
   },
   {
     "type": "#M(",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
