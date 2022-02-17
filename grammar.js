@@ -25,6 +25,7 @@ module.exports = grammar({
         $.binary,
         $.delimited_symbol,
         $.symbol,
+        $.atom,
         $.list,
         $.tuple,
         $.map,
@@ -182,8 +183,10 @@ module.exports = grammar({
     symbol: () => {
       const symbolTail = /[^\s\n\v\f\r(){}\[\]";]*/;
       const symbolHead = /[^\s\n\v\f\r(){}\[\]";|',#]/;
-      return token(seq(optional("'"), symbolHead, symbolTail));
+      return token(seq(symbolHead, symbolTail));
     },
+
+    atom: ($) => seq("'", alias(choice($.symbol, $.delimited_symbol), "sym")),
 
     list: ($) =>
       choice(

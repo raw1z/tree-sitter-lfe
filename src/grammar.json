@@ -93,6 +93,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "atom"
+        },
+        {
+          "type": "SYMBOL",
           "name": "list"
         },
         {
@@ -900,18 +904,6 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "'"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
             "type": "PATTERN",
             "value": "[^\\s\\n\\v\\f\\r(){}\\[\\]\";|',#]"
           },
@@ -921,6 +913,33 @@
           }
         ]
       }
+    },
+    "atom": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "'"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "symbol"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "delimited_symbol"
+              }
+            ]
+          },
+          "named": false,
+          "value": "sym"
+        }
+      ]
     },
     "list": {
       "type": "CHOICE",

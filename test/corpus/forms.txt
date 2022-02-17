@@ -51,21 +51,21 @@ match-lambda
     (patterns
       (pattern_clause
         (pattern
-          (symbol)
+          (atom)
           (symbol))
         (body
           (list
             (symbol))))
       (pattern_clause
         (pattern
-          (symbol)
+          (atom)
           (symbol))
         (body
           (list
             (symbol))))
       (pattern_clause
         (pattern
-          (symbol)
+          (atom)
           (symbol))
         (body
           (list

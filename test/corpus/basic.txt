@@ -228,18 +228,10 @@ foo-bar
 451°F
 123foo
 1.23e4extra
-'foo
-'Foo
-'foo-bar
-':foo
 
 --------------------------------------------------------------------------------
 
 (source
-  (symbol)
-  (symbol)
-  (symbol)
-  (symbol)
   (symbol)
   (symbol)
   (symbol)
@@ -264,6 +256,29 @@ Symbols / delimited by |
   (delimited_symbol)
   (delimited_symbol)
   (delimited_symbol))
+
+================================================================================
+Atoms
+================================================================================
+
+'foo
+'Foo
+'foo-bar
+':foo
+'||
+'|symbol name with spaces|
+'|symbol with a vertical bar \| in its name|
+
+--------------------------------------------------------------------------------
+
+(source
+  (atom)
+  (atom)
+  (atom)
+  (atom)
+  (atom)
+  (atom)
+  (atom))
 
 ================================================================================
 Lists

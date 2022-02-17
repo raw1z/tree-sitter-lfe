@@ -1,5 +1,10 @@
 [
   {
+    "type": "atom",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "binary",
     "named": true,
     "fields": {},
@@ -114,6 +119,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "atom",
+          "named": true
+        },
         {
           "type": "binary",
           "named": true
@@ -307,6 +316,10 @@
       "required": false,
       "types": [
         {
+          "type": "atom",
+          "named": true
+        },
+        {
           "type": "binary",
           "named": true
         },
@@ -402,6 +415,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "atom",
+            "named": true
+          },
           {
             "type": "binary",
             "named": true
@@ -769,6 +786,10 @@
       "required": false,
       "types": [
         {
+          "type": "atom",
+          "named": true
+        },
+        {
           "type": "binary",
           "named": true
         },
@@ -874,6 +895,10 @@
       "required": false,
       "types": [
         {
+          "type": "atom",
+          "named": true
+        },
+        {
           "type": "binary",
           "named": true
         },
@@ -944,6 +969,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "atom",
+          "named": true
+        },
         {
           "type": "binary",
           "named": true
@@ -1097,11 +1126,11 @@
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "from",
@@ -1153,6 +1182,10 @@
   },
   {
     "type": "size",
+    "named": false
+  },
+  {
+    "type": "sym",
     "named": false
   },
   {
