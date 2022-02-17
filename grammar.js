@@ -29,6 +29,7 @@ module.exports = grammar({
         $.tuple,
         $.map,
         $.lambda,
+        $.match_lambda,
         $.defun,
         $.defmacro,
         $.module
@@ -181,11 +182,14 @@ module.exports = grammar({
     symbol: () => {
       const symbolTail = /[^\s\n\v\f\r(){}\[\]";]*/;
       const symbolHead = /[^\s\n\v\f\r(){}\[\]";|',#]/;
-      return token(seq(symbolHead, symbolTail));
+      return token(seq(optional("'"), symbolHead, symbolTail));
     },
 
     list: ($) =>
-      choice(seq("(", repeat($._form), ")"), seq("[", repeat($._form), "]")),
+      choice(
+        seq(optional("'"), "(", repeat($._form), ")"),
+        seq(optional("'"), "[", repeat($._form), "]")
+      ),
 
     tuple: ($) => seq("#(", repeat($._form), ")"),
 

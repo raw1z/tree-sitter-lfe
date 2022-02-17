@@ -228,10 +228,18 @@ foo-bar
 451°F
 123foo
 1.23e4extra
+'foo
+'Foo
+'foo-bar
+':foo
 
 --------------------------------------------------------------------------------
 
 (source
+  (symbol)
+  (symbol)
+  (symbol)
+  (symbol)
   (symbol)
   (symbol)
   (symbol)
@@ -279,6 +287,10 @@ Lists
   [bar baz])
 [foo
   (bar baz)]
+'()
+'[]
+'(foo bar baz)
+'[foo bar baz]
 
 --------------------------------------------------------------------------------
 
@@ -320,7 +332,17 @@ Lists
     (symbol)
     (list
       (symbol)
-      (symbol))))
+      (symbol)))
+  (list)
+  (list)
+  (list
+    (symbol)
+    (symbol)
+    (symbol))
+  (list
+    (symbol)
+    (symbol)
+    (symbol)))
 
 ================================================================================
 Tuples
