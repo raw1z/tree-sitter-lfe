@@ -1,0 +1,322 @@
+================================================================================
+lambda
+================================================================================
+
+(lambda () 5)
+(lambda (x) x)
+(lambda (x y)
+  (+ x y))
+
+--------------------------------------------------------------------------------
+
+(source
+  (lambda
+   parameters: (function_parameters)
+   body: (function_body
+     (integer)))
+  (lambda
+    parameters: (function_parameters
+      (function_argument
+        name: (symbol)))
+    body: (function_body
+      (symbol)))
+  (lambda
+    parameters: (function_parameters
+      (function_argument
+        name: (symbol))
+      (function_argument
+        name: (symbol)))
+    body: (function_body
+      (list
+        (symbol)
+        (symbol)
+        (symbol)))))
+
+================================================================================
+defun
+================================================================================
+
+(defun five () 5)
+(defun id (x) x)
+(defun add (x y)
+  (+ x y))
+(defun fac
+  ((1) 1)
+  ((n) (* n (fac (- n 1)))))
+(defun five ()
+  "returns five"
+  5)
+(defun fac
+  "compute factorial"
+  ((1) 1)
+  ((n) (* n (fac (- n 1)))))
+
+--------------------------------------------------------------------------------
+
+(source
+  (defun
+    name: (symbol)
+    parameters: (function_parameters)
+    body: (function_body
+      (integer)))
+  (defun
+    name: (symbol)
+    parameters: (function_parameters
+      (function_argument
+        name: (symbol)))
+    body: (function_body
+      (symbol)))
+  (defun
+    name: (symbol)
+    parameters: (function_parameters
+      (function_argument
+        name: (symbol))
+      (function_argument
+        name: (symbol)))
+    body: (function_body
+      (list
+        (symbol)
+        (symbol)
+        (symbol))))
+  (defun
+    name: (symbol)
+    patterns: (function_patterns
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (integer)))
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (list
+            (symbol)
+            (symbol)
+            (list
+              (symbol)
+              (list
+                (symbol)
+                (symbol)
+                (integer))))))))
+  (defun
+    name: (symbol)
+    parameters: (function_parameters)
+    body: (function_body
+      (list_string)
+      (integer)))
+  (defun
+    name: (symbol)
+    (list_string)
+    patterns: (function_patterns
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (integer)))
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (list
+            (symbol)
+            (symbol)
+            (list
+              (symbol)
+              (list
+                (symbol)
+                (symbol)
+                (integer)))))))))
+
+================================================================================
+defmacro
+================================================================================
+
+(defmacro five () 5)
+(defmacro id (x) x)
+(defmacro add (x y)
+  (+ x y))
+(defmacro fac
+  ((1) 1)
+  ((n) (* n (fac (- n 1)))))
+(defmacro five ()
+  "returns five"
+  5)
+(defmacro fac
+  "compute factorial"
+  ((1) 1)
+  ((n) (* n (fac (- n 1)))))
+
+--------------------------------------------------------------------------------
+
+(source
+  (defmacro
+    name: (symbol)
+    parameters: (function_parameters)
+    body: (function_body
+      (integer)))
+  (defmacro
+    name: (symbol)
+    parameters: (function_parameters
+      (function_argument
+        name: (symbol)))
+    body: (function_body
+      (symbol)))
+  (defmacro
+    name: (symbol)
+    parameters: (function_parameters
+      (function_argument
+        name: (symbol))
+      (function_argument
+        name: (symbol)))
+    body: (function_body
+      (list
+        (symbol)
+        (symbol)
+        (symbol))))
+  (defmacro
+    name: (symbol)
+    patterns: (function_patterns
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (integer)))
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (list
+            (symbol)
+            (symbol)
+            (list
+              (symbol)
+              (list
+                (symbol)
+                (symbol)
+                (integer))))))))
+  (defmacro
+    name: (symbol)
+    parameters: (function_parameters)
+    body: (function_body
+      (list_string)
+      (integer)))
+  (defmacro
+    name: (symbol)
+    (list_string)
+    patterns: (function_patterns
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (integer)))
+      (function_pattern
+        parameters: (function_parameters
+          (function_argument
+            name: (symbol)))
+        body: (function_body
+          (list
+            (symbol)
+            (symbol)
+            (list
+              (symbol)
+              (list
+                (symbol)
+                (symbol)
+                (integer)))))))))
+
+================================================================================
+defmodule
+================================================================================
+
+(defmodule test
+  "This is the module documentation."
+  (export all))
+
+(defmodule test
+  (export (f 2) (g 1)))
+
+(defmodule test
+  (import
+    (from mod (f 2)
+              (g 1))))
+
+(defmodule test
+  (import
+    (rename mod ((g1 2) m-g1)
+                ((g2 1) m-g2))))
+
+(defmodule test
+  (module-alias (really-long-module-name rlmn)
+                (other-really-long-module-name orlmn)))
+(defmodule test
+  (attr-1 value-1 value-2))
+
+--------------------------------------------------------------------------------
+
+(source
+  (module
+    name: (symbol)
+    documentation: (list_string)
+    exports: (module_exports))
+  (module
+    name: (symbol)
+    exports: (module_exports
+      (function_with_arity
+        name: (symbol)
+        arity: (integer))
+      (function_with_arity
+        name: (symbol)
+        arity: (integer))))
+  (module
+    name: (symbol)
+    imports: (module_imports
+      (module_import
+        (module_import_from
+          module: (symbol)
+          functions: (module_import_from_functions
+            (function_with_arity
+              name: (symbol)
+              arity: (integer))
+            (function_with_arity
+              name: (symbol)
+              arity: (integer)))))))
+  (module
+    name: (symbol)
+    imports: (module_imports
+      (module_import
+        (module_import_rename
+          module: (symbol)
+          aliases: (module_import_rename_aliases
+            (module_import_rename_alias
+              function: (function_with_arity
+                name: (symbol)
+                arity: (integer))
+              alias: (symbol))
+            (module_import_rename_alias
+              function: (function_with_arity
+                name: (symbol)
+                arity: (integer))
+              alias: (symbol)))))))
+  (module
+    name: (symbol)
+    alias: (module_alias
+      (module_alias_item
+        module: (symbol)
+        alias: (symbol))
+      (module_alias_item
+        module: (symbol)
+        alias: (symbol))))
+  (module
+    name: (symbol)
+    (list
+      (symbol)
+      (symbol)
+      (symbol))))

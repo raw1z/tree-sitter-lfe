@@ -27,7 +27,11 @@ module.exports = grammar({
         $.symbol,
         $.list,
         $.tuple,
-        $.map
+        $.map,
+        $.lambda,
+        $.defun,
+        $.defmacro,
+        $.module
       ),
 
     float: (_) => {
@@ -101,11 +105,13 @@ module.exports = grammar({
       ),
 
     binary_string: (_) =>
-      seq(
-        '#"',
-        repeat(/[^"\\]/),
-        repeat(seq("\\", /./, repeat(/[^"\\]/))),
-        '"'
+      token(
+        seq(
+          '#"',
+          repeat(/[^"\\]/),
+          repeat(seq("\\", /./, repeat(/[^"\\]/))),
+          '"'
+        )
       ),
 
     binary_size: ($) => seq("(", "size", $.integer, ")"),
@@ -129,11 +135,16 @@ module.exports = grammar({
 
     binary_segment: ($) =>
       choice(
-        seq(
-          '"',
-          repeat(/[^"()\\]/),
-          repeat(seq("\\", /./, repeat(/[^"()\\]/))),
-          '"'
+        alias(
+          token(
+            seq(
+              '"',
+              repeat(/[^"()\\]/),
+              repeat(seq("\\", /./, repeat(/[^"()\\]/))),
+              '"'
+            )
+          ),
+          $.list_string
         ),
         choice($.integer, $.float),
         seq(
@@ -173,18 +184,140 @@ module.exports = grammar({
       return token(seq(symbolHead, symbolTail));
     },
 
-    _paren_list: ($) =>
-      seq(field("open", "("), repeat($._form), field("close", ")")),
+    list: ($) =>
+      choice(seq("(", repeat($._form), ")"), seq("[", repeat($._form), "]")),
 
-    _square_bracket_list: ($) =>
-      seq(field("open", "["), repeat($._form), field("close", "]")),
-
-    list: ($) => choice($._paren_list, $._square_bracket_list),
-
-    tuple: ($) => seq("#", $._paren_list),
+    tuple: ($) => seq("#(", repeat($._form), ")"),
 
     map_pair: ($) => seq(field("key", $.symbol), field("value", $._form)),
 
     map: ($) => seq("#M(", repeat($.map_pair), ")"),
+
+    function_argument: ($) => field("name", $.symbol),
+
+    function_parameters: ($) => seq("(", repeat($.function_argument), ")"),
+
+    function_body: ($) => repeat1($._form),
+
+    function_pattern: ($) =>
+      seq(
+        "(",
+        field("parameters", $.function_parameters),
+        field("body", $.function_body),
+        ")"
+      ),
+
+    lambda: ($) =>
+      seq(
+        "(",
+        "lambda",
+        field("parameters", $.function_parameters),
+        field("body", $.function_body),
+        ")"
+      ),
+
+    defun: ($) =>
+      seq(
+        "(",
+        "defun",
+        choice(
+          seq(
+            field("name", $.symbol),
+            field("parameters", $.function_parameters),
+            field("body", $.function_body)
+          ),
+          seq(
+            field("name", $.symbol),
+            optional($.list_string),
+            field(
+              "patterns",
+              alias(repeat1($.function_pattern), $.function_patterns)
+            )
+          )
+        ),
+        ")"
+      ),
+
+    defmacro: ($) =>
+      seq(
+        "(",
+        "defmacro",
+        choice(
+          seq(
+            field("name", $.symbol),
+            field("parameters", $.function_parameters),
+            field("body", $.function_body)
+          ),
+          seq(
+            field("name", $.symbol),
+            optional($.list_string),
+            field(
+              "patterns",
+              alias(repeat1($.function_pattern), $.function_patterns)
+            )
+          )
+        ),
+        ")"
+      ),
+
+    function_with_arity: ($) =>
+      seq("(", field("name", $.symbol), field("arity", $.integer), ")"),
+
+    module_exports: ($) =>
+      seq("(", "export", choice("all", repeat1($.function_with_arity)), ")"),
+
+    module_import_from_functions: ($) => repeat1($.function_with_arity),
+
+    module_import_from: ($) =>
+      seq(
+        "(",
+        "from",
+        field("module", $.symbol),
+        field("functions", $.module_import_from_functions),
+        ")"
+      ),
+
+    module_import_rename_alias: ($) =>
+      seq(
+        "(",
+        field("function", $.function_with_arity),
+        field("alias", $.symbol),
+        ")"
+      ),
+
+    module_import_rename_aliases: ($) => repeat1($.module_import_rename_alias),
+
+    module_import_rename: ($) =>
+      seq(
+        "(",
+        "rename",
+        field("module", $.symbol),
+        field("aliases", $.module_import_rename_aliases),
+        ")"
+      ),
+
+    module_import: ($) =>
+      seq(choice($.module_import_from, $.module_import_rename)),
+
+    module_imports: ($) => seq("(", "import", repeat1($.module_import), ")"),
+
+    module_alias_item: ($) =>
+      seq("(", field("module", $.symbol), field("alias", $.symbol), ")"),
+
+    module_alias: ($) =>
+      seq("(", "module-alias", repeat1($.module_alias_item), ")"),
+
+    module: ($) =>
+      seq(
+        "(",
+        "defmodule",
+        field("name", $.symbol),
+        field("documentation", optional($.list_string)),
+        field("exports", repeat($.module_exports)),
+        field("imports", repeat($.module_imports)),
+        field("alias", optional($.module_alias)),
+        repeat($.list),
+        ")"
+      ),
   },
 });

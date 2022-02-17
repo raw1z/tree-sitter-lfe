@@ -151,7 +151,8 @@ Binaries
   (binary
     (binary_string))
   (binary
-    (binary_segment))
+    (binary_segment
+      (list_string)))
   (binary
     (binary_segment
       (integer)))
