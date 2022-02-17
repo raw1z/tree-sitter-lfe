@@ -206,7 +206,10 @@ module.exports = grammar({
 
     body: ($) => repeat1($._form),
 
-    pattern_clause: ($) => seq("(", alias($.list, $.pattern), $.body, ")"),
+    guard: ($) => seq("(", "when", repeat($._form), ")"),
+
+    pattern_clause: ($) =>
+      seq("(", alias($.list, $.pattern), optional($.guard), $.body, ")"),
 
     lambda: ($) => seq("(", "lambda", $.parameters, $.body, ")"),
 
