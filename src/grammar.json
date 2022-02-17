@@ -1342,7 +1342,7 @@
         }
       ]
     },
-    "function_with_arity": {
+    "function": {
       "type": "SEQ",
       "members": [
         {
@@ -1371,7 +1371,7 @@
         }
       ]
     },
-    "module_exports": {
+    "exports": {
       "type": "SEQ",
       "members": [
         {
@@ -1393,7 +1393,7 @@
               "type": "REPEAT1",
               "content": {
                 "type": "SYMBOL",
-                "name": "function_with_arity"
+                "name": "function"
               }
             }
           ]
@@ -1404,14 +1404,14 @@
         }
       ]
     },
-    "module_import_from_functions": {
+    "import_from_functions": {
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
-        "name": "function_with_arity"
+        "name": "function"
       }
     },
-    "module_import_from": {
+    "import_from": {
       "type": "SEQ",
       "members": [
         {
@@ -1435,7 +1435,7 @@
           "name": "functions",
           "content": {
             "type": "SYMBOL",
-            "name": "module_import_from_functions"
+            "name": "import_from_functions"
           }
         },
         {
@@ -1444,7 +1444,7 @@
         }
       ]
     },
-    "module_import_rename_alias": {
+    "import_alias": {
       "type": "SEQ",
       "members": [
         {
@@ -1456,7 +1456,7 @@
           "name": "function",
           "content": {
             "type": "SYMBOL",
-            "name": "function_with_arity"
+            "name": "function"
           }
         },
         {
@@ -1473,14 +1473,14 @@
         }
       ]
     },
-    "module_import_rename_aliases": {
+    "aliases": {
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
-        "name": "module_import_rename_alias"
+        "name": "import_alias"
       }
     },
-    "module_import_rename": {
+    "import_rename": {
       "type": "SEQ",
       "members": [
         {
@@ -1500,12 +1500,8 @@
           }
         },
         {
-          "type": "FIELD",
-          "name": "aliases",
-          "content": {
-            "type": "SYMBOL",
-            "name": "module_import_rename_aliases"
-          }
+          "type": "SYMBOL",
+          "name": "aliases"
         },
         {
           "type": "STRING",
@@ -1513,7 +1509,7 @@
         }
       ]
     },
-    "module_import": {
+    "import": {
       "type": "SEQ",
       "members": [
         {
@@ -1521,17 +1517,17 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "module_import_from"
+              "name": "import_from"
             },
             {
               "type": "SYMBOL",
-              "name": "module_import_rename"
+              "name": "import_rename"
             }
           ]
         }
       ]
     },
-    "module_imports": {
+    "imports": {
       "type": "SEQ",
       "members": [
         {
@@ -1546,7 +1542,7 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "module_import"
+            "name": "import"
           }
         },
         {
@@ -1644,25 +1640,17 @@
           }
         },
         {
-          "type": "FIELD",
-          "name": "exports",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "SYMBOL",
-              "name": "module_exports"
-            }
+            "type": "SYMBOL",
+            "name": "exports"
           }
         },
         {
-          "type": "FIELD",
-          "name": "imports",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "SYMBOL",
-              "name": "module_imports"
-            }
+            "type": "SYMBOL",
+            "name": "imports"
           }
         },
         {

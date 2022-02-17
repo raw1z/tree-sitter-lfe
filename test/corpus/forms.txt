@@ -296,43 +296,43 @@ defmodule
   (module
     name: (symbol)
     documentation: (list_string)
-    exports: (module_exports))
+    (exports))
   (module
     name: (symbol)
-    exports: (module_exports
-      (function_with_arity
+    (exports
+      (function
         name: (symbol)
         arity: (integer))
-      (function_with_arity
+      (function
         name: (symbol)
         arity: (integer))))
   (module
     name: (symbol)
-    imports: (module_imports
-      (module_import
-        (module_import_from
+    (imports
+      (import
+        (import_from
           module: (symbol)
-          functions: (module_import_from_functions
-            (function_with_arity
+          functions: (import_from_functions
+            (function
               name: (symbol)
               arity: (integer))
-            (function_with_arity
+            (function
               name: (symbol)
               arity: (integer)))))))
   (module
     name: (symbol)
-    imports: (module_imports
-      (module_import
-        (module_import_rename
+    (imports
+      (import
+        (import_rename
           module: (symbol)
-          aliases: (module_import_rename_aliases
-            (module_import_rename_alias
-              function: (function_with_arity
+          (aliases
+            (import_alias
+              function: (function
                 name: (symbol)
                 arity: (integer))
               alias: (symbol))
-            (module_import_rename_alias
-              function: (function_with_arity
+            (import_alias
+              function: (function
                 name: (symbol)
                 arity: (integer))
               alias: (symbol)))))))

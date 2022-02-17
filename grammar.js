@@ -248,46 +248,33 @@ module.exports = grammar({
         ")"
       ),
 
-    function_with_arity: ($) =>
+    function: ($) =>
       seq("(", field("name", $.symbol), field("arity", $.integer), ")"),
 
-    module_exports: ($) =>
-      seq("(", "export", choice("all", repeat1($.function_with_arity)), ")"),
+    exports: ($) => seq("(", "export", choice("all", repeat1($.function)), ")"),
 
-    module_import_from_functions: ($) => repeat1($.function_with_arity),
+    import_from_functions: ($) => repeat1($.function),
 
-    module_import_from: ($) =>
+    import_from: ($) =>
       seq(
         "(",
         "from",
         field("module", $.symbol),
-        field("functions", $.module_import_from_functions),
+        field("functions", $.import_from_functions),
         ")"
       ),
 
-    module_import_rename_alias: ($) =>
-      seq(
-        "(",
-        field("function", $.function_with_arity),
-        field("alias", $.symbol),
-        ")"
-      ),
+    import_alias: ($) =>
+      seq("(", field("function", $.function), field("alias", $.symbol), ")"),
 
-    module_import_rename_aliases: ($) => repeat1($.module_import_rename_alias),
+    aliases: ($) => repeat1($.import_alias),
 
-    module_import_rename: ($) =>
-      seq(
-        "(",
-        "rename",
-        field("module", $.symbol),
-        field("aliases", $.module_import_rename_aliases),
-        ")"
-      ),
+    import_rename: ($) =>
+      seq("(", "rename", field("module", $.symbol), $.aliases, ")"),
 
-    module_import: ($) =>
-      seq(choice($.module_import_from, $.module_import_rename)),
+    import: ($) => seq(choice($.import_from, $.import_rename)),
 
-    module_imports: ($) => seq("(", "import", repeat1($.module_import), ")"),
+    imports: ($) => seq("(", "import", repeat1($.import), ")"),
 
     module_alias_item: ($) =>
       seq("(", field("module", $.symbol), field("alias", $.symbol), ")"),
@@ -301,8 +288,8 @@ module.exports = grammar({
         "defmodule",
         field("name", $.symbol),
         field("documentation", optional($.list_string)),
-        field("exports", repeat($.module_exports)),
-        field("imports", repeat($.module_imports)),
+        repeat($.exports),
+        repeat($.imports),
         field("alias", optional($.module_alias)),
         repeat($.list),
         ")"
