@@ -101,6 +101,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "quoted_list"
+        },
+        {
+          "type": "SYMBOL",
           "name": "tuple"
         },
         {
@@ -995,18 +999,6 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "'"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
               "type": "STRING",
               "value": "("
             },
@@ -1027,18 +1019,6 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "'"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
               "type": "STRING",
               "value": "["
             },
@@ -1054,6 +1034,24 @@
               "value": "]"
             }
           ]
+        }
+      ]
+    },
+    "quoted_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "'"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "list"
+          },
+          "named": false,
+          "value": "list"
         }
       ]
     },

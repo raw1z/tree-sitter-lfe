@@ -356,13 +356,13 @@ Lists
     (list
       (symbol)
       (symbol)))
-  (list)
-  (list)
-  (list
+  (quoted_list)
+  (quoted_list)
+  (quoted_list
     (symbol)
     (symbol)
     (symbol))
-  (list
+  (quoted_list
     (symbol)
     (symbol)
     (symbol)))

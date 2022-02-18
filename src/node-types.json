@@ -215,6 +215,10 @@
           "named": true
         },
         {
+          "type": "quoted_list",
+          "named": true
+        },
+        {
           "type": "symbol",
           "named": true
         },
@@ -303,6 +307,10 @@
         },
         {
           "type": "module",
+          "named": true
+        },
+        {
+          "type": "quoted_list",
           "named": true
         },
         {
@@ -398,6 +406,10 @@
         },
         {
           "type": "pattern_clause",
+          "named": true
+        },
+        {
+          "type": "quoted_list",
           "named": true
         },
         {
@@ -512,6 +524,10 @@
         },
         {
           "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "quoted_list",
           "named": true
         },
         {
@@ -697,6 +713,10 @@
           "named": true
         },
         {
+          "type": "quoted_list",
+          "named": true
+        },
+        {
           "type": "symbol",
           "named": true
         },
@@ -811,6 +831,10 @@
         },
         {
           "type": "module",
+          "named": true
+        },
+        {
+          "type": "quoted_list",
           "named": true
         },
         {
@@ -1097,6 +1121,10 @@
           "named": true
         },
         {
+          "type": "quoted_list",
+          "named": true
+        },
+        {
           "type": "symbol",
           "named": true
         },
@@ -1210,6 +1238,10 @@
           },
           {
             "type": "module",
+            "named": true
+          },
+          {
+            "type": "quoted_list",
             "named": true
           },
           {
@@ -1434,6 +1466,10 @@
           "named": true
         },
         {
+          "type": "quoted_list",
+          "named": true
+        },
+        {
           "type": "symbol",
           "named": true
         },
@@ -1567,6 +1603,10 @@
           "named": true
         },
         {
+          "type": "quoted_list",
+          "named": true
+        },
+        {
           "type": "symbol",
           "named": true
         },
@@ -1576,6 +1616,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "quoted_list",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "source",
@@ -1655,6 +1700,10 @@
         },
         {
           "type": "module",
+          "named": true
+        },
+        {
+          "type": "quoted_list",
           "named": true
         },
         {
@@ -1749,6 +1798,10 @@
           "named": true
         },
         {
+          "type": "quoted_list",
+          "named": true
+        },
+        {
           "type": "symbol",
           "named": true
         },
@@ -1837,6 +1890,10 @@
         },
         {
           "type": "module",
+          "named": true
+        },
+        {
+          "type": "quoted_list",
           "named": true
         },
         {

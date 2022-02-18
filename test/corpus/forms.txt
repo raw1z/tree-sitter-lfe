@@ -499,7 +499,7 @@ case
       (pattern
         (symbol)
         (symbol)
-        (list))
+        (quoted_list))
       (body
         (list_string)))
     (pattern_clause
@@ -549,7 +549,7 @@ cond
         (list
           (symbol)
           (symbol)
-          (list
+          (quoted_list
             (integer)
             (integer)
             (integer))))
@@ -578,7 +578,7 @@ cond
         (list
           (symbol)
           (symbol)
-          (list))
+          (quoted_list))
         (symbol))
       (list_string))
     (cond_clause

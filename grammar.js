@@ -27,6 +27,7 @@ module.exports = grammar({
         $.symbol,
         $.atom,
         $.list,
+        $.quoted_list,
         $.tuple,
         $.map,
         $.lambda,
@@ -198,10 +199,9 @@ module.exports = grammar({
     atom: ($) => seq("'", alias(choice($.symbol, $.delimited_symbol), "sym")),
 
     list: ($) =>
-      choice(
-        seq(optional("'"), "(", repeat($._form), ")"),
-        seq(optional("'"), "[", repeat($._form), "]")
-      ),
+      choice(seq("(", repeat($._form), ")"), seq("[", repeat($._form), "]")),
+
+    quoted_list: ($) => seq("'", alias($.list, "list")),
 
     tuple: ($) => seq("#(", repeat($._form), ")"),
 
