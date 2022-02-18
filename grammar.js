@@ -34,7 +34,10 @@ module.exports = grammar({
         $.defun,
         $.defmacro,
         $.module,
-        $.let
+        $.let,
+        $.if,
+        $.case,
+        $.cond
       ),
 
     float: (_) => {
@@ -217,12 +220,15 @@ module.exports = grammar({
     guard: ($) => seq($._open, "when", repeat($._form), $._close),
 
     pattern_clause: ($) =>
-      seq(
-        $._open,
-        alias($.list, $.pattern),
-        optional($.guard),
-        $.body,
-        $._close
+      choice(
+        seq(
+          $._open,
+          alias($.list, $.pattern),
+          optional($.guard),
+          $.body,
+          $._close
+        ),
+        seq($._open, alias("_", $.anything), $.body, $._close)
       ),
 
     lambda: ($) => seq($._open, "lambda", $.parameters, $.body, $._close),
@@ -340,5 +346,34 @@ module.exports = grammar({
         alias(repeat1($._form), $.body),
         $._close
       ),
+
+    if: ($) =>
+      seq(
+        $._open,
+        "if",
+        alias($._form, $.predicate),
+        alias($._form, $.true_expr),
+        optional(alias($._form, $.false_expr)),
+        $._close
+      ),
+
+    case: ($) =>
+      seq($._open, "case", $._form, repeat1($.pattern_clause), $._close),
+
+    _cond_clause_pattern: ($) =>
+      seq($._open, "?=", $.list, optional($.guard), $._form, $._close),
+
+    cond_clause: ($) =>
+      choice(
+        seq($._open, alias($._form, $.predicate), $._form, $._close),
+        seq(
+          $._open,
+          alias($._cond_clause_pattern, $.pattern),
+          $._form,
+          $._close
+        )
+      ),
+
+    cond: ($) => seq($._open, "cond", repeat1($.cond_clause), $._close),
   },
 });

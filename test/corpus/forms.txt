@@ -451,3 +451,173 @@ let
         (symbol)
         (integer)
         (integer)))))
+
+================================================================================
+if
+================================================================================
+
+(if (> a b)
+  a
+  (b - a))
+
+--------------------------------------------------------------------------------
+
+(source
+  (if
+    (predicate
+      (list
+        (symbol)
+        (symbol)
+        (symbol)))
+    (true_expr
+      (symbol))
+    (false_expr
+      (list
+        (symbol)
+        (symbol)
+        (symbol)))))
+
+================================================================================
+case
+================================================================================
+
+(case x
+  ((cons head '())
+   "Only one element")
+  ((list 1 2)
+   "Two element list")
+  ((list 'a _)
+    "List starts with 'a'")
+  (_ "Anything goes"))
+
+--------------------------------------------------------------------------------
+
+(source
+  (case
+    (symbol)
+    (pattern_clause
+      (pattern
+        (symbol)
+        (symbol)
+        (list))
+      (body
+        (list_string)))
+    (pattern_clause
+      (pattern
+        (symbol)
+        (integer)
+        (integer))
+      (body
+        (list_string)))
+    (pattern_clause
+      (pattern
+        (symbol)
+        (atom)
+        (symbol))
+      (body
+        (list_string)))
+    (pattern_clause
+      (anything)
+      (body
+        (list_string)))))
+
+================================================================================
+cond
+================================================================================
+
+(cond ((lists:member x '(1 2 3)) "First three")
+      ((=:= x 4) "Is four")
+      ((>= x 5) "More than four")
+      ('true "You chose poorly"))
+
+(cond
+  ((?= (cons head '()) x)
+    "Only one element")
+  ((?= (list 1 2) x)
+    "Two element list")
+  ((?= (list a _) (when (is_atom a)) x)
+    "List starts with an atom")
+  ((?= (cons _ (cons a _)) (when (is_tuple a)) x)
+    "Second element is a tuple")
+  ('true "Anything goes"))
+--------------------------------------------------------------------------------
+
+(source
+  (cond
+    (cond_clause
+      (predicate
+        (list
+          (symbol)
+          (symbol)
+          (list
+            (integer)
+            (integer)
+            (integer))))
+      (list_string))
+    (cond_clause
+      (predicate
+        (list
+          (symbol)
+          (symbol)
+          (integer)))
+      (list_string))
+    (cond_clause
+      (predicate
+        (list
+          (symbol)
+          (symbol)
+          (integer)))
+      (list_string))
+    (cond_clause
+      (predicate
+        (atom))
+      (list_string)))
+  (cond
+    (cond_clause
+      (pattern
+        (list
+          (symbol)
+          (symbol)
+          (list))
+        (symbol))
+      (list_string))
+    (cond_clause
+      (pattern
+        (list
+          (symbol)
+          (integer)
+          (integer))
+        (symbol))
+      (list_string))
+    (cond_clause
+      (pattern
+        (list
+          (symbol)
+          (symbol)
+          (symbol))
+        (guard
+          (list
+            (symbol)
+            (symbol)))
+        (symbol))
+      (list_string))
+    (cond_clause
+      (pattern
+        (list
+          (symbol)
+          (symbol)
+          (list
+            (symbol)
+            (symbol)
+            (symbol)))
+        (guard
+          (list
+            (symbol)
+            (symbol)))
+        (symbol))
+      (list_string))
+    (cond_clause
+      (predicate
+        (atom))
+      (list_string))))
+

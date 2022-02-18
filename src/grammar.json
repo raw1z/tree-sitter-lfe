@@ -130,6 +130,18 @@
         {
           "type": "SYMBOL",
           "name": "let"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "case"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond"
         }
       ]
     },
@@ -1183,40 +1195,71 @@
       ]
     },
     "pattern_clause": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_open"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "list"
-          },
-          "named": true,
-          "value": "pattern"
-        },
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "guard"
+              "name": "_open"
             },
             {
-              "type": "BLANK"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "list"
+              },
+              "named": true,
+              "value": "pattern"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "guard"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "body"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_close"
             }
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "body"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_close"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_open"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "_"
+              },
+              "named": true,
+              "value": "anything"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "body"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_close"
+            }
+          ]
         }
       ]
     },
@@ -1846,6 +1889,204 @@
           },
           "named": true,
           "value": "body"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_close"
+        }
+      ]
+    },
+    "if": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_open"
+        },
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_form"
+          },
+          "named": true,
+          "value": "predicate"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_form"
+          },
+          "named": true,
+          "value": "true_expr"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_form"
+              },
+              "named": true,
+              "value": "false_expr"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_close"
+        }
+      ]
+    },
+    "case": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_open"
+        },
+        {
+          "type": "STRING",
+          "value": "case"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_form"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pattern_clause"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_close"
+        }
+      ]
+    },
+    "_cond_clause_pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_open"
+        },
+        {
+          "type": "STRING",
+          "value": "?="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "guard"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_form"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_close"
+        }
+      ]
+    },
+    "cond_clause": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_open"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_form"
+              },
+              "named": true,
+              "value": "predicate"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_form"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_close"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_open"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_cond_clause_pattern"
+              },
+              "named": true,
+              "value": "pattern"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_form"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_close"
+            }
+          ]
+        }
+      ]
+    },
+    "cond": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_open"
+        },
+        {
+          "type": "STRING",
+          "value": "cond"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "cond_clause"
+          }
         },
         {
           "type": "SYMBOL",
