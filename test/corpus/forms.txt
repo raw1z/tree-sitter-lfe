@@ -351,3 +351,103 @@ defmodule
       (symbol)
       (symbol)
       (symbol))))
+
+================================================================================
+let
+================================================================================
+
+(let ((x 2)
+      (y 3))
+  (list x y (* x y)))
+
+(let* [(x 2)
+       (y 3)
+       (z (* x y))]
+  (list x y z))
+
+(let [((tuple name place age) #("Ford Prefect" "Betelgeuse Seven" 234))]
+  (list name place age))
+
+(let-function [(add (lambda [x y] (+ x y)))]
+  (add 1 2))
+--------------------------------------------------------------------------------
+
+(source
+  (let
+    (binding_clause
+      (binding
+        (symbol))
+      (integer))
+    (binding_clause
+      (binding
+        (symbol))
+      (integer))
+    (body
+      (list
+        (symbol)
+        (symbol)
+        (symbol)
+        (list
+          (symbol)
+          (symbol)
+          (symbol)))))
+  (let
+    (binding_clause
+      (binding
+        (symbol))
+      (integer))
+    (binding_clause
+      (binding
+        (symbol))
+      (integer))
+    (binding_clause
+      (binding
+        (symbol))
+      (list
+        (symbol)
+        (symbol)
+        (symbol)))
+    (body
+      (list
+        (symbol)
+        (symbol)
+        (symbol)
+        (symbol))))
+  (let
+    (pattern_clause
+      (pattern
+        (symbol)
+        (symbol)
+        (symbol)
+        (symbol))
+      (body
+        (tuple
+          (list_string)
+          (list_string)
+          (integer))))
+    (body
+      (list
+        (symbol)
+        (symbol)
+        (symbol)
+        (symbol))))
+  (let
+    (binding_clause
+      (binding
+        (symbol))
+      (lambda
+        (parameters
+          (binding
+            (symbol))
+          (binding
+            (symbol)))
+        (body
+          (list
+            (symbol)
+            (symbol)
+            (symbol)))))
+    (body
+      (list
+        (symbol)
+        (integer)
+        (integer)))))

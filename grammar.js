@@ -33,7 +33,8 @@ module.exports = grammar({
         $.match_lambda,
         $.defun,
         $.defmacro,
-        $.module
+        $.module,
+        $.let
       ),
 
     float: (_) => {
@@ -96,6 +97,10 @@ module.exports = grammar({
     character: (_) =>
       token(choice(seq("#\\", /[^"\\]/), seq("#\\x", /[0-9a-fA-F]+/, ";"))),
 
+    _open: (_) => choice("(", "["),
+
+    _close: (_) => choice(")", "]"),
+
     list_string: (_) =>
       token(
         seq(
@@ -116,7 +121,8 @@ module.exports = grammar({
         )
       ),
 
-    binary_size: ($) => seq("(", alias("size", $.symbol), $.integer, ")"),
+    binary_size: ($) =>
+      seq($._open, alias("size", $.symbol), $.integer, $._close),
 
     binary_type: (_) =>
       choice(
@@ -150,7 +156,7 @@ module.exports = grammar({
         ),
         choice($.integer, $.float),
         seq(
-          "(",
+          $._open,
           choice($.integer, $.float, $.binary_string),
           repeat(
             choice(
@@ -160,7 +166,7 @@ module.exports = grammar({
               $.binary_endianess
             )
           ),
-          ")"
+          $._close
         )
       ),
 
@@ -202,28 +208,36 @@ module.exports = grammar({
 
     binding: ($) => $.symbol,
 
-    parameters: ($) => seq("(", repeat($.binding), ")"),
+    binding_clause: ($) => seq($._open, $.binding, $._form, $._close),
+
+    parameters: ($) => seq($._open, repeat($.binding), $._close),
 
     body: ($) => repeat1($._form),
 
-    guard: ($) => seq("(", "when", repeat($._form), ")"),
+    guard: ($) => seq($._open, "when", repeat($._form), $._close),
 
     pattern_clause: ($) =>
-      seq("(", alias($.list, $.pattern), optional($.guard), $.body, ")"),
+      seq(
+        $._open,
+        alias($.list, $.pattern),
+        optional($.guard),
+        $.body,
+        $._close
+      ),
 
-    lambda: ($) => seq("(", "lambda", $.parameters, $.body, ")"),
+    lambda: ($) => seq($._open, "lambda", $.parameters, $.body, $._close),
 
     match_lambda: ($) =>
       seq(
-        "(",
+        $._open,
         "match-lambda",
         alias(repeat1($.pattern_clause), $.patterns),
-        ")"
+        $._close
       ),
 
     defun: ($) =>
       seq(
-        "(",
+        $._open,
         "defun",
         choice(
           seq(field("name", $.symbol), $.parameters, $.body),
@@ -233,12 +247,12 @@ module.exports = grammar({
             alias(repeat1($.pattern_clause), $.patterns)
           )
         ),
-        ")"
+        $._close
       ),
 
     defmacro: ($) =>
       seq(
-        "(",
+        $._open,
         "defmacro",
         choice(
           seq(field("name", $.symbol), $.parameters, $.body),
@@ -248,46 +262,62 @@ module.exports = grammar({
             alias(repeat1($.pattern_clause), $.patterns)
           )
         ),
-        ")"
+        $._close
       ),
 
     function: ($) =>
-      seq("(", field("name", $.symbol), field("arity", $.integer), ")"),
+      seq(
+        $._open,
+        field("name", $.symbol),
+        field("arity", $.integer),
+        $._close
+      ),
 
-    exports: ($) => seq("(", "export", choice("all", repeat1($.function)), ")"),
+    exports: ($) =>
+      seq($._open, "export", choice("all", repeat1($.function)), $._close),
 
     import_from_functions: ($) => repeat1($.function),
 
     import_from: ($) =>
       seq(
-        "(",
+        $._open,
         "from",
         field("module", $.symbol),
         field("functions", $.import_from_functions),
-        ")"
+        $._close
       ),
 
     import_alias: ($) =>
-      seq("(", field("function", $.function), field("alias", $.symbol), ")"),
+      seq(
+        $._open,
+        field("function", $.function),
+        field("alias", $.symbol),
+        $._close
+      ),
 
     aliases: ($) => repeat1($.import_alias),
 
     import_rename: ($) =>
-      seq("(", "rename", field("module", $.symbol), $.aliases, ")"),
+      seq($._open, "rename", field("module", $.symbol), $.aliases, $._close),
 
     import: ($) => seq(choice($.import_from, $.import_rename)),
 
-    imports: ($) => seq("(", "import", repeat1($.import), ")"),
+    imports: ($) => seq($._open, "import", repeat1($.import), $._close),
 
     module_alias_item: ($) =>
-      seq("(", field("module", $.symbol), field("alias", $.symbol), ")"),
+      seq(
+        $._open,
+        field("module", $.symbol),
+        field("alias", $.symbol),
+        $._close
+      ),
 
     module_alias: ($) =>
-      seq("(", "module-alias", repeat1($.module_alias_item), ")"),
+      seq($._open, "module-alias", repeat1($.module_alias_item), $._close),
 
     module: ($) =>
       seq(
-        "(",
+        $._open,
         "defmodule",
         field("name", $.symbol),
         field("documentation", optional($.list_string)),
@@ -295,7 +325,20 @@ module.exports = grammar({
         repeat($.imports),
         field("alias", optional($.module_alias)),
         repeat($.list),
-        ")"
+        $._close
+      ),
+
+    let: ($) =>
+      seq(
+        $._open,
+        choice("let", "let*", "let-function", "letrec-function", "let-macro"),
+        seq(
+          $._open,
+          repeat1(choice($.binding_clause, $.pattern_clause)),
+          $._close
+        ),
+        alias(repeat1($._form), $.body),
+        $._close
       ),
   },
 });
