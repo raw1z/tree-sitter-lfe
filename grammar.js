@@ -116,7 +116,7 @@ module.exports = grammar({
         )
       ),
 
-    binary_size: ($) => seq("(", "size", $.integer, ")"),
+    binary_size: ($) => seq("(", alias("size", $.symbol), $.integer, ")"),
 
     binary_type: (_) =>
       choice(

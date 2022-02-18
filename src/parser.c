@@ -125,7 +125,7 @@ static const char * const ts_symbol_names[] = {
   [sym_list_string] = "list_string",
   [sym_binary_string] = "binary_string",
   [anon_sym_LPAREN] = "(",
-  [anon_sym_size] = "size",
+  [anon_sym_size] = "symbol",
   [anon_sym_RPAREN] = ")",
   [anon_sym_integer] = "integer",
   [anon_sym_float] = "float",
@@ -224,7 +224,7 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_list_string] = sym_list_string,
   [sym_binary_string] = sym_binary_string,
   [anon_sym_LPAREN] = anon_sym_LPAREN,
-  [anon_sym_size] = anon_sym_size,
+  [anon_sym_size] = sym_symbol,
   [anon_sym_RPAREN] = anon_sym_RPAREN,
   [anon_sym_integer] = anon_sym_integer,
   [anon_sym_float] = anon_sym_float,
@@ -355,7 +355,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   },
   [anon_sym_size] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
   [anon_sym_RPAREN] = {
     .visible = true,

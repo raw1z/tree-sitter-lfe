@@ -162,10 +162,12 @@ Binaries
     (binary_segment
       (integer)
       (binary_size
+        (symbol)
         (integer)))
     (binary_segment
       (integer)
       (binary_size
+        (symbol)
         (integer))))
   (binary
     (binary_segment
@@ -175,22 +177,26 @@ Binaries
     (binary_segment
       (integer)
       (binary_size
+        (symbol)
         (integer)))
     (binary_segment
       (integer))
     (binary_segment
       (integer)
       (binary_size
+        (symbol)
         (integer))))
   (binary
     (binary_segment
       (integer)
       (binary_size
+        (symbol)
         (integer))
       (binary_endianess))
     (binary_segment
       (integer)
       (binary_size
+        (symbol)
         (integer))
       (binary_endianess)))
   (binary
@@ -200,11 +206,13 @@ Binaries
     (binary_segment
       (float)
       (binary_size
+        (symbol)
         (integer))
       (binary_type))
     (binary_segment
       (float)
       (binary_size
+        (symbol)
         (integer))
       (binary_type)))
   (binary

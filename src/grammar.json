@@ -620,8 +620,13 @@
           "value": "("
         },
         {
-          "type": "STRING",
-          "value": "size"
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "size"
+          },
+          "named": true,
+          "value": "symbol"
         },
         {
           "type": "SYMBOL",
