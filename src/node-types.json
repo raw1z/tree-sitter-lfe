@@ -1625,6 +1625,7 @@
   {
     "type": "source",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -2013,11 +2014,11 @@
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "from",
@@ -2033,11 +2034,11 @@
   },
   {
     "type": "integer",
-    "named": true
+    "named": false
   },
   {
     "type": "integer",
-    "named": false
+    "named": true
   },
   {
     "type": "lambda",
