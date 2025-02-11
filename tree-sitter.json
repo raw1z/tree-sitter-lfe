@@ -7,7 +7,8 @@
       "path": ".",
       "file-types": [
         "lfe"
-      ]
+      ],
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
